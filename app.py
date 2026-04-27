@@ -7,8 +7,11 @@ app = Flask(__name__)
 API_KEY = os.environ.get("CLAUDE_API_KEY")
 
 def ask_ai(text):
+
+     # ここから追加
     if not API_KEY:
-        return "ERROR: API key not set"
+        return "ERROR: API key not set. Current key is: " + str(API_KEY)
+    # ここまで追加
 
     try:
         res = requests.post(
