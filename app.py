@@ -7,11 +7,8 @@ app = Flask(__name__)
 API_KEY = os.environ.get("CLAUDE_API_KEY")
 
 def ask_ai(text):
-
-     # ここから追加
     if not API_KEY:
-        return "ERROR: API key not set. Current key is: " + str(API_KEY)
-    # ここまで追加
+        return "ERROR: API key not set. Current key is: None"
 
     try:
         res = requests.post(
@@ -22,7 +19,7 @@ def ask_ai(text):
                 "content-type": "application/json"
             },
             json={
-                "model": "claude-3-haiku-20240307",
+                "model": "claude-haiku-4-5-20251001",  # 最新モデルIDに変更
                 "max_tokens": 300,
                 "messages": [
                     {"role": "user", "content": text}
@@ -46,7 +43,6 @@ def index():
 
     if request.method == "POST":
         text = request.form.get("text", "").strip()
-
         if not text:
             result = "Please enter text"
         else:
